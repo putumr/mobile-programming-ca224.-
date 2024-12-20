@@ -1,16 +1,12 @@
-# flutter_application_2
+I Putu Ananta Kusumadewa Mahaputra/220040168
 
-A new Flutter project.
 
-## Getting Started
+berikut merupakan hasil dari tugas yang bapak berikan
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+![Screenshot 2024-12-21 012129](https://github.com/user-attachments/assets/a66af91b-14c5-4fe4-8be3-243585f693dd)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+![Screenshot 2024-12-21 012142](https://github.com/user-attachments/assets/1a91a3fd-2792-49cc-8d8b-21bea17ae61a)
