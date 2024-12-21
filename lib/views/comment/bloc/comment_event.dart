@@ -1,8 +1,16 @@
-part of 'comment_bloc.dart';
+import 'package:myapp/models/comment.dart';
 
-sealed class CommentEvent extends Equatable {
-  const CommentEvent();
+abstract class CommentEvent {}
 
-  @override
-  List<Object> get props => [];
+class LoadComments extends CommentEvent {
+  final String momentId;
+
+  LoadComments(this.momentId);
+}
+
+class AddComment extends CommentEvent {
+  final String momentId;
+  final Comment comment; // Pastikan ini bertipe Comment
+
+  AddComment(this.momentId, this.comment);
 }

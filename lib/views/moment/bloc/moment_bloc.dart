@@ -2,33 +2,34 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:myapp/repositories/contracts/abs_moment_repository.dart';
+import 'package:faker/faker.dart' as faker;
+import 'package:nanoid2/nanoid2.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 
-import '../../../../models/moment.dart';
+import '../../../models/moment.dart';
 
 part 'moment_event.dart';
 part 'moment_state.dart';
 
 class MomentBloc extends Bloc<MomentEvent, MomentState> {
-  final AbsMomentRepository _momentRepository;
+  final _faker = faker.Faker();
   List<Moment> _moments = [];
-  MomentBloc(this._momentRepository) : super(MomentLoadingState()) {
-    // _moments = List.generate(
-    //   2,
-    //   (index) => Moment(
-    //     id: nanoid(),
-    //     momentDate: _faker.date.dateTime(),
-    //     creator: _faker.person.name(),
-    //     location: _faker.address.city(),
-    //     imageUrl: 'https://picsum.photos/800/600?random=$index',
-    //     caption: _faker.lorem.sentence(),
-    //     likesCount: faker.random.integer(1000),
-    //     commentsCount: faker.random.integer(100),
-    //     bookmarksCount: faker.random.integer(10),
-    //   ),
-    // );
+  MomentBloc() : super(MomentLoadingState()) {
+    _moments = List.generate(
+      5,
+      (index) => Moment(
+        id: nanoid(),
+        momentDate: _faker.date.dateTime(),
+        creator: _faker.person.name(),
+        location: _faker.address.city(),
+        imageUrl: 'https://picsum.photos/800/600?random=$index',
+        caption: _faker.lorem.sentence(),
+        likesCount: faker.random.integer(1000),
+        commentsCount: faker.random.integer(100),
+        bookmarksCount: faker.random.integer(10),
+      ),
+    );
 
     // Deklarasikan event handler
     on<MomentGetEvent>(momentGetEvent);
@@ -52,8 +53,7 @@ class MomentBloc extends Bloc<MomentEvent, MomentState> {
       MomentGetEvent event, Emitter<MomentState> emit) async {
     emit(MomentGetLoadingState());
     try {
-      // Membaca data moment dari database
-      _moments = await _momentRepository.getAllMoments();
+      await Future.delayed(const Duration(seconds: 1));
       emit(MomentGetSuccessState(_moments));
     } catch (e) {
       emit(MomentGetFailedActionState(e.toString()));
@@ -64,7 +64,7 @@ class MomentBloc extends Bloc<MomentEvent, MomentState> {
       MomentAddEvent event, Emitter<MomentState> emit) async {
     emit(MomentAddLoadingState());
     try {
-      await _momentRepository.addMoment(event.newMoment);
+      await Future.delayed(const Duration(seconds: 1));
       _moments.add(event.newMoment);
       emit(MomentAddSuccessActionState(event.newMoment));
     } catch (e) {
@@ -78,7 +78,7 @@ class MomentBloc extends Bloc<MomentEvent, MomentState> {
     try {
       final existingMoment = getMomentById(event.updatedMoment.id);
       if (existingMoment != null) {
-        await _momentRepository.updateMoment(event.updatedMoment);
+        await Future.delayed(const Duration(seconds: 1));
         _moments[_moments.indexOf(existingMoment)] = event.updatedMoment;
         emit(MomentUpdateSuccessActionState(event.updatedMoment));
       } else {
@@ -95,7 +95,7 @@ class MomentBloc extends Bloc<MomentEvent, MomentState> {
     try {
       final existingMoment = getMomentById(event.momentId);
       if (existingMoment != null) {
-        await _momentRepository.deleteMoment(event.momentId);
+        await Future.delayed(const Duration(seconds: 1));
         _moments.remove(existingMoment);
         emit(MomentDeleteSuccessActionState(event.momentId));
       } else {

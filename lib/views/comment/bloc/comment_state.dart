@@ -1,10 +1,30 @@
-part of 'comment_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:myapp/models/comment.dart';
 
-sealed class CommentState extends Equatable {
-  const CommentState();
-  
+abstract class CommentState extends Equatable {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class CommentInitial extends CommentState {}
+class CommentLoading extends CommentState {}
+
+class CommentInitial extends CommentState {}
+
+
+class CommentLoaded extends CommentState {
+  final List<Comment> comments;
+
+  CommentLoaded(this.comments);
+
+  @override
+  List<Object?> get props => [comments];
+}
+
+class CommentError extends CommentState {
+  final String error;
+
+  CommentError(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}
